@@ -1,6 +1,9 @@
 # React Search
 
-This is a simple react app for someone to search the reddit api.
+This is a simple react app for adding notes through a form field.
+
+## State map
+![state image](assets/state-map.jpg)
 
 ## Getting Started
 
