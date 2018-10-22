@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import NoteItem from '../note-item/note-item';
 
 class NoteList extends React.Component {
   constructor(props) {
@@ -10,15 +12,23 @@ class NoteList extends React.Component {
         <ul>
           {
             this.props.notes.map((currentNote) => {
-              return <li key={currentNote.id}>
-                <h5>{currentNote.title}</h5>
-                <p>{currentNote.content}</p>
-              </li>
+              return <NoteItem
+                  key = {currentNote.id}
+                  currentNote = {currentNote}
+                  handleRemoveNote = {this.props.handleRemoveNote}
+                  handleComplete = {this.props.handleComplete}
+              />;
             })
           }
         </ul>
     );
   }
+}
+
+NoteList.propTypes = {
+  notes: PropTypes.obj,
+  handleRemoveNote: PropTypes.func,
+  handleComplete: PropTypes.func,
 }
 
 export default NoteList;

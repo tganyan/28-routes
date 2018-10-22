@@ -13,13 +13,28 @@ class Dashboard extends React.Component {
 
   handleAddNote = (note) => {
     note.id = uuid();
-
     return this.setState((previousState) => {
       return {
         notes: [...previousState.notes, note],
       }
+    });
+  }
 
-      console.log(this.state.notes);
+  handleRemoveNote = (noteToRemove) => {
+    this.setState((previousState) => ({
+      notes: previousState.notes.filter(currentNote => currentNote.id !== noteToRemove.id),
+    }));
+  }
+
+  handleUpdateNote = (noteToUpdate) => {
+    return this.setState((previousState) => {
+      return { notes: previousState.notes.map((currentNote) => {
+        if (currentNote.id === noteToUpdate.id) {
+          currentNote = noteToUpdate;
+        }
+        return currentNote;
+      }),
+    }
     });
   }
 
@@ -29,10 +44,12 @@ class Dashboard extends React.Component {
           <h2>Notes Dashboard</h2>
           <p>Add a new note</p>
           <NoteCreateForm
-            handleAddNote = {this.handleAddNote}
+            handleComplete = {this.handleAddNote}
           />
           <NoteList
             notes = {this.state.notes}
+            handleRemoveNote = {this.handleRemoveNote}
+            handleComplete = {this.handleUpdateNote}
           />
         </section>
     );

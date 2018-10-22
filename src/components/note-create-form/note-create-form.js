@@ -1,21 +1,21 @@
 import React from 'react';
-import Dashboard from '../dashboard/dashboard';
-
+import PropTypes from 'prop-types';
 
 class NoteCreateForm extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      completed: false,
+    const emptyState = {
       content: '',
       title: '',
-    };
+    }
+
+    this.state = this.props.note ? this.props.note : emptyState;
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.handleAddNote(this.state);
+    this.props.handleComplete(this.state);
   }
 
   handleChange = (event) => {
@@ -27,6 +27,7 @@ class NoteCreateForm extends React.Component {
   };
 
   render() {
+    const buttonText = this.props.note ? 'Update' : 'Submit'
     return (
         <form onSubmit={this.handleSubmit}>
           <input
@@ -45,10 +46,15 @@ class NoteCreateForm extends React.Component {
               onChange={this.handleChange}
           />
           <label htmlFor='content'>Enter the results limit</label>
-          <button type='submit'>submit</button>
+          <button type='submit'>{buttonText} note</button>
         </form>
     );
   }
+}
+
+NoteCreateForm.propTypes = {
+  note: PropTypes.obj,
+  handleComplete: PropTypes.func,
 }
 
 export default NoteCreateForm;
